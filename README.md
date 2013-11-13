@@ -12,7 +12,7 @@ a jquery based select. use it as native html select. you can change it by modify
 * set the select class = "zzSelection"
 * enjoy it as native html select!
 
-# SCRENNSHOT
+# SCREENSHOT
 ![screenshot](https://raw.github.com/ashqal/zzSelection/master/screenshot.png)
 
 # HOW DOES IT WORK?
