@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>zzSelection</title>
+
+
+
+<link href="css/index.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.timers.min.js"></script>
+
+<!--debug mode
+<script type="text/javascript" src="js/aconsole.js"></script>
+-->
+
+<!--zzSelection-->
+<link href="zzSelection/css/zzSelection.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="zzSelection/js/zzSelection-1.0.js"></script>
+<script>
+function getValue( value , selectionName )
+{
+	//alert()
+	//var value2 = selectionName;
+	var selection = $('select[name=' + selectionName + ']');
+	var selectionValue = selection.val();
+	var selectionLabel = selection.find("option:selected").text();
+	$(value).val(  "value=" + selectionValue + "\nlabel=" + selectionLabel   );
+}
+
+</script>
+
+</head>
+
+<body>
+
+<h1 style="padding:20px;">zzSelection</h1>
+<hr>
+
+<h2 style="padding:20px;">demo</h1>
+<div style="height:20px; padding:20px;">
+  <div style="float:left; width:220px; text-align:right; padding:5px;">set class = zzSelection demo</div>
+    <select class="zzSelection" name="mySelection1">
+        <option>a(no value)</option>
+        <option value="value of b">b</option>
+        <option value="value of c">c</option>
+        <option value="value of d">d</option>
+    </select>
+    <input type="button" value="get value of demo a" onclick='getValue(this,"mySelection1")'/>
+</div>
+
+<div class="kong"></div>
+
+<div style="height:20px; padding:20px;">
+  <div style="float:left; width:220px; text-align:right; padding:5px;">demo</div>
+	<select class="" name="mySelection2">
+        <option>a(no value)</option>
+        <option value="value of b">b</option>
+        <option value="value of c">c</option>
+        <option value="value of d">d</option>
+    </select>
+    <input type="button" value="get value of demo b" onclick='getValue(this,"mySelection2")'/>
+</div>
+
+<hr>
+
+<h2 style="padding:20px;">how to use it?</h1>
+<ul style="padding:20px;">
+<li>1、head import jquery-1.8.2.min.js</li>
+<li>2、head import jquery.timers.min.js</li>
+<li>3、head import zzSelection/js/zzSelection-1.0.js</li>
+<li>4、head import zzSelection/css/zzSelection.css</li>
+<li>5、set the select class = "zzSelection"  </li>
+<li>6、enjoy it as native html select! </li>
+</ul>
+<hr>
+
+
+<p style="text-align:right;">note:the zzSelection is <strong>float left</strong> by default!</p>
+<p style="text-align:right;">author:ashqal,zz,ashnb@qq.com</p>
+
+
+</body>
+</html>
