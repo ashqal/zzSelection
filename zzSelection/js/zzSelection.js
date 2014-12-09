@@ -2,15 +2,11 @@
 // version - 1.0
 $(function(){
 	$.fn.zzSelection();
+	//$('body').popup('abc');
 });
+
 $.fn.zzSelection = function(){
-	var STATUS_EUMN = 
-	{
-		STATUS_SHOW:0,
-		STATUS_HIDE:1
-	};
-	var currentStatus = STATUS_EUMN.STATUS_HIDE;
-	var nextStatus = STATUS_EUMN.STATUS_HIDE;
+	
 	if (typeof window.console == "undefined") {
 		window.console = {log: function( param ) {
 			//$('#aconsole').html( $('#aconsole').html() + '</br>' + param );	
@@ -18,7 +14,7 @@ $.fn.zzSelection = function(){
 	}
 	
 	
-	$('select[class="zzSelection"]').each(function(){
+	$('select[class="zzSelection"]').each(function( index  ){
 		var sel_select = $(this);
 		$(this).css("display","none");
 		$(this).wrap( '<div class="select_box" style="float:left;" ></div>' );
@@ -26,10 +22,29 @@ $.fn.zzSelection = function(){
 		//alert();
 		$(this).after( '<div class="sel_opt_panel"></div>');
 		var sel_panel = $(this).next();
-		$(sel_panel).after( '<ol class="sel_opt_list" ></ol>');
+		
+		sel_panel.after( '<ol class="sel_opt_list" ></ol>');
 		var sel_list = $(sel_panel).next();
+		var identify = 'zzSelectionTmp' + index;
+		sel_list.attr('id',identify);
 		
+		sel_panel.attr("data-target",identify);
+		var dropdown = sel_panel.zzDropdown({
+			click2tick:true,
+			OnShow:showSelection,
+			OnHide:hideSelection
+			});
 		
+		function hideSelection(){
+			$(sel_list).slideUp('fast');
+	
+		};
+		function showSelection(){
+			$(sel_list).slideDown('fast');
+
+		};
+		
+		//alert( dropdown );
 		//console.log( sel_list );
 		//alert(sel_list);
 		
@@ -51,65 +66,8 @@ $.fn.zzSelection = function(){
 		$(sel_list).hide();
 
 		//alert( $(sel_panel).isFocus );
-		$(sel_panel).click(function(){
-			console.log('sel_panel click');
-			//$(sel_list).focus();
-			//showSelection();
-			nextStatus = STATUS_EUMN.STATUS_SHOW;
-			commitStatus();
-		});
-		$(sel_panel).mouseover(function(){
-			if( currentStatus == STATUS_EUMN.STATUS_SHOW )
-			{
-				nextStatus = STATUS_EUMN.STATUS_SHOW;
-				delayExcuteStatus();
-			}
-			
-		});
-		$(sel_panel).mouseout(function(){
-			nextStatus = STATUS_EUMN.STATUS_HIDE;
-			delayExcuteStatus();
-		});
-		$(sel_list).mouseout(function(){
-			nextStatus = STATUS_EUMN.STATUS_HIDE;
-			delayExcuteStatus();
-		});
 		
-		$(sel_list).mouseover(function(){
-			nextStatus = STATUS_EUMN.STATUS_SHOW;
-			delayExcuteStatus();
-		});
 		
-		function delayExcuteStatus()
-		{
-			$( sel_list ).stopTime();
-			$( sel_list ).oneTime('0.2s' , commitStatus);
-		}
-		function commitStatus()
-		{
-			console.log('commitStatus:' +  nextStatus);
-			if( currentStatus != nextStatus )
-			{
-				currentStatus = nextStatus;
-				switch( currentStatus )
-				{
-					case STATUS_EUMN.STATUS_SHOW:
-						showSelection();
-						break;
-					case STATUS_EUMN.STATUS_HIDE:
-						hideSelection();
-						break;
-				}
-			}	
-		}
-		function hideSelection(){
-			$(sel_list).slideUp('fast');
-			//console.log('sel_container blur');
-		};
-		function showSelection(){
-			$(sel_list).slideDown('fast');
-			//console.log('sel_container focus');
-		};
 		
 		function onZZSelectionListClickedDelegate( index  )
 		{
@@ -119,9 +77,7 @@ $.fn.zzSelection = function(){
 			//$(sel_select).find("option").eq(index).attr("selected", true);
 			
 			ZZSetPanelText( label );
-			nextStatus = STATUS_EUMN.STATUS_HIDE;
-			commitStatus();
-			//hideSelection();
+			dropdown.cancel();
 		}
 		function ZZSetPanelText( value )
 		{
